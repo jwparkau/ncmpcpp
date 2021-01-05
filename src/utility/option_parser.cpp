@@ -45,6 +45,23 @@ bool yes_no(const std::string &v)
 		invalid_value(v);
 }
 
+std::vector<size_t> parse_ratio(const std::string &v, const std::vector<size_t>::size_type length)
+{
+	std::string e("");
+	std::string c(":");
+	std::string q("");
+	std::vector<size_t> ret = list_of<size_t>(v, verbose_lexical_cast<size_t>, length, e, c, q);
+
+	size_t total = 0;
+	for (auto i : ret)
+		total += i;
+	if (total == 0)
+		invalid_value(v);
+
+	return ret;
+}
+
+
 ////////////////////////////////////////////////////////////////////////////////
 
 bool option_parser::run(std::istream &is, bool ignore_errors)
